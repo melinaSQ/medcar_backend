@@ -19,18 +19,18 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
         console.log('Un usuario se ha conectado a SOCKET.IO', client.id);
     }
 
-    // @SubscribeMessage('message')
-    // handleMessage(@MessageBody() data: any) {
-    //     console.log('Nuevo mensaje: ', data);
-    //     this.server.emit('new_message', 'Bien gracias');
-    // }
+    @SubscribeMessage('message')
+    handleMessage(@MessageBody() data: any) {
+        console.log('Nuevo mensaje: ', data);
+        this.server.emit('new_message', 'Bien gracias');
+    }
 
-    // @SubscribeMessage('change_driver_position')
-    // handleChangeDriverPosition(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
-    //     console.log('EMITIO NUEVA POSICION: ', data);
+    @SubscribeMessage('change_driver_position')
+    handleChangeDriverPosition(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
+        console.log('EMITIO NUEVA POSICION: ', data);
         
-    //     this.server.emit('new_driver_position', { id_socket: client.id, id: data.id, lat: data.lat, lng: data.lng });
-    // }
+        this.server.emit('new_driver_position', { id_socket: client.id, id: data.id, lat: data.lat, lng: data.lng });
+    }
 
     // @SubscribeMessage('new_client_request')
     // handleNewClientRequest(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
