@@ -5,12 +5,12 @@ import { ClientRequestsController } from './client_requests.controller';
 import { TimeAndDistanceValuesModule } from 'src/time_and_distance_values/time_and_distance_values.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
-// import { ClientRequests } from './client_requests.entity';
+import { ClientRequests } from './client_requests.entity';
 // import { FirebaseModule } from 'src/firebase/firebase.module';
 
 @Module({
   providers: [ClientRequestsService],
   controllers: [ClientRequestsController],
-  imports: [TimeAndDistanceValuesModule, /*TypeOrmModule.forFeature([ClientRequests, User]), FirebaseModule*/]
+  imports: [TimeAndDistanceValuesModule, TypeOrmModule.forFeature([ClientRequests, User])/*, FirebaseModule*/]
 })
 export class ClientRequestsModule {}
