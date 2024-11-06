@@ -380,30 +380,31 @@ export class ClientRequestsService  extends Client {
         HAVING
             distance < 10000
         `);
-        // if(data.length > 0) {
-        //     const pickup_positions = data.map(d => ({ 
-        //         lat: d.pickup_position.y, 
-        //         lng: d.pickup_position.x 
-        //     }));
+        
+        if(data.length > 0) {
+            const pickup_positions = data.map(d => ({ 
+                lat: d.pickup_position.y, 
+                lng: d.pickup_position.x 
+            }));
     
-        //     const googleResponse = await this.distancematrix({
-        //         params: {
-        //             mode: TravelMode.driving,
-        //             key: API_KEY,
-        //             origins: [
-        //                 {
-        //                     lat: driver_lat,
-        //                     lng: driver_lng
-        //                 }
-        //             ],
-        //             destinations: pickup_positions
-        //         }
-        //     });
+            const googleResponse = await this.distancematrix({
+                params: {
+                    mode: TravelMode.driving,
+                    key: API_KEY,
+                    origins: [
+                        {
+                            lat: driver_lat,
+                            lng: driver_lng
+                        }
+                    ],
+                    destinations: pickup_positions
+                }
+            });
     
-        //     data.forEach((d, index) => {
-        //         d.google_distance_matrix = googleResponse.data.rows[0].elements[index];
-        //     });      
-        // }
+            data.forEach((d, index) => {
+                d.google_distance_matrix = googleResponse.data.rows[0].elements[index];
+            });      
+        }
         return data;
     }
 
