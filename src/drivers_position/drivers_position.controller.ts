@@ -25,9 +25,9 @@ export class DriversPositionController {
         return this.driversPositionService.getNearbyDrivers(client_lat, client_lng);        
     }
 
-    // @Delete(':id_driver')
-    // delete(@Param('id_driver', ParseIntPipe) id_driver: number ) {
-    //     return this.driversPositionService.delete(id_driver);
-    // }
+    @Delete(':id_driver')
+    delete(@Param('id_driver', ParseIntPipe) id_driver: number ) {
+        return this.driversPositionService.delete(id_driver);
+    }
 
 }

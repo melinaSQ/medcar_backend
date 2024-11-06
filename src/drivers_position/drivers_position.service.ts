@@ -77,8 +77,8 @@ export class DriversPositionService {
         return driversPosition;
     }
 
-    // delete(id_driver: number) {
-    //     return this.driversPositionRepository.delete(id_driver);
-    // }
+    delete(id_driver: number) {
+        return this.driversPositionRepository.delete(id_driver);
+    }
 
 }
