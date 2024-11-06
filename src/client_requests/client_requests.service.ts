@@ -3,8 +3,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { TimeAndDistanceValuesService } from '../time_and_distance_values/time_and_distance_values.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-// import { ClientRequests, Status } from './client_requests.entity';
-// import { CreateClientRequestDto } from './dto/create_client_request.dto';
+import { ClientRequests, Status } from './client_requests.entity';
+import { CreateClientRequestDto } from './dto/create_client_request.dto';
 // import { UpdateDriverAssignedClientRequestDto } from './dto/update_driver_assigned_client_request.dto';
 // import { UpdateStatusClientRequestDto } from './dto/update_status_client_request.dto';
 // import { UpdateDriverRatingDto } from './dto/update_driver_rating.dto';
@@ -19,90 +19,92 @@ const API_KEY = 'AIzaSyCFnby3-GO4JaxvIUut1-uiy8dYgmquAEw';
 export class ClientRequestsService  extends Client {
 
     constructor(
-        // @InjectRepository(ClientRequests) private clientRequestsRepository: Repository<ClientRequests>,
+        @InjectRepository(ClientRequests) private clientRequestsRepository: Repository<ClientRequests>,
         private timeAndDistanceValuesService: TimeAndDistanceValuesService,  
         // private firebaseRepository: FirebaseRepository
     ) {
         super();
     }
   
-    // async create(clientRequest: CreateClientRequestDto) {
-    //     try {
-    //         await this.clientRequestsRepository.query(`
-    //             INSERT INTO
-    //                 client_requests(
-    //                     id_client,
-    //                     fare_offered,
-    //                     pickup_description,
-    //                     destination_description,
-    //                     pickup_position,
-    //                     destination_position
-    //                 )
-    //             VALUES(
-    //                 ${clientRequest.id_client},
-    //                 ${clientRequest.fare_offered},
-    //                 '${clientRequest.pickup_description}',
-    //                 '${clientRequest.destination_description}',
-    //                 ST_GeomFromText('POINT(${clientRequest.pickup_lat} ${clientRequest.pickup_lng})', 4326),
-    //                 ST_GeomFromText('POINT(${clientRequest.destination_lat} ${clientRequest.destination_lng})', 4326)
-    //             )
-    //         `);
-    //         const data = await this.clientRequestsRepository.query(`SELECT MAX(id) AS id FROM client_requests`);
-    //         const nearbyDrivers = await this.clientRequestsRepository.query(`
-    //         SELECT
-    //             U.id,
-    //             U.name,
-    //             U.notification_token,
-    //             DP.position,
-    //             ST_Distance_Sphere(DP.position, ST_GeomFromText('POINT(${clientRequest.pickup_lat} ${clientRequest.pickup_lng})', 4326)) AS distance
-    //         FROM
-    //             users AS U
-    //         LEFT JOIN
-    //             drivers_position AS DP
-    //         ON
-    //             U.id = DP.id_driver    
-    //         HAVING
-    //             distance < 10000
-    //         `);
-    //         const notificationTokens = [];
-            
-    //         nearbyDrivers.forEach((driver, index) => {
-    //             if (!notificationTokens.includes(driver.notification_token)) {
-    //                 if (driver.notification_token !== '') {
-    //                     notificationTokens.push(driver.notification_token);
-    //                 }
-                    
-    //             }
-    //         });
-    //         console.log('NOTIFICATION TOKEN:', notificationTokens);
+    async create(clientRequest: CreateClientRequestDto) {
+        try {
+            await this.clientRequestsRepository.query(`
+                INSERT INTO
+                    client_requests(
+                        id_client,
+                        fare_offered,
+                        pickup_description,
+                        destination_description,
+                        pickup_position,
+                        destination_position
+                    )
+                VALUES(
+                    ${clientRequest.id_client},
+                    ${clientRequest.fare_offered},
+                    '${clientRequest.pickup_description}',
+                    '${clientRequest.destination_description}',
+                    ST_GeomFromText('POINT(${clientRequest.pickup_lat} ${clientRequest.pickup_lng})', 4326),
+                    ST_GeomFromText('POINT(${clientRequest.destination_lat} ${clientRequest.destination_lng})', 4326)
+                )
+            `);
 
-    //         this.firebaseRepository.sendMessageToMultipleDevices({
-    //             "tokens": notificationTokens,
-    //             "notification":{
-    //               "title":"Solicitud de viaje",
-    //               "body": clientRequest.pickup_description
-    //             },
-    //             "data" : {
-    //               "id_client_requets" : `${data[0].id}`,
-    //               "type" : 'CLIENT_REQUEST',
-    //             },
-    //             "android":{
-    //               "priority":"high",
-    //               "ttl": 180
-    //             },
-    //             "apns":{
-    //               "headers":{
-    //                 "apns-priority":"5",
-    //                 "apns-expiration":"180"
-    //               }
-    //             }
-    //         });
-    //         return Number(data[0].id);
-    //     } catch (error) {
-    //         console.log('Error creando la solicitud del cliente', error);
-    //         throw new HttpException('Error del servidor', HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+            return true;
+            // const data = await this.clientRequestsRepository.query(`SELECT MAX(id) AS id FROM client_requests`);
+            // const nearbyDrivers = await this.clientRequestsRepository.query(`
+            // SELECT
+            //     U.id,
+            //     U.name,
+            //     U.notification_token,
+            //     DP.position,
+            //     ST_Distance_Sphere(DP.position, ST_GeomFromText('POINT(${clientRequest.pickup_lat} ${clientRequest.pickup_lng})', 4326)) AS distance
+            // FROM
+            //     users AS U
+            // LEFT JOIN
+            //     drivers_position AS DP
+            // ON
+            //     U.id = DP.id_driver    
+            // HAVING
+            //     distance < 10000
+            // `);
+            // const notificationTokens = [];
+            
+            // nearbyDrivers.forEach((driver, index) => {
+            //     if (!notificationTokens.includes(driver.notification_token)) {
+            //         if (driver.notification_token !== '') {
+            //             notificationTokens.push(driver.notification_token);
+            //         }
+                    
+            //     }
+            // });
+            // console.log('NOTIFICATION TOKEN:', notificationTokens);
+
+            // this.firebaseRepository.sendMessageToMultipleDevices({
+            //     "tokens": notificationTokens,
+            //     "notification":{
+            //       "title":"Solicitud de viaje",
+            //       "body": clientRequest.pickup_description
+            //     },
+            //     "data" : {
+            //       "id_client_requets" : `${data[0].id}`,
+            //       "type" : 'CLIENT_REQUEST',
+            //     },
+            //     "android":{
+            //       "priority":"high",
+            //       "ttl": 180
+            //     },
+            //     "apns":{
+            //       "headers":{
+            //         "apns-priority":"5",
+            //         "apns-expiration":"180"
+            //       }
+            //     }
+            // });
+            // return Number(data[0].id);
+        } catch (error) {
+            console.log('Error creando la solicitud del cliente', error);
+            throw new HttpException('Error del servidor', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async updateDriverAssigned(driverAssigned: UpdateDriverAssignedClientRequestDto) {
     //     try {

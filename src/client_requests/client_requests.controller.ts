@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ClientRequestsService } from './client_requests.service';
-// import { CreateClientRequestDto } from './dto/create_client_request.dto';
+import { CreateClientRequestDto } from './dto/create_client_request.dto';
 // import { UpdateDriverAssignedClientRequestDto } from './dto/update_driver_assigned_client_request.dto';
 // import { UpdateStatusClientRequestDto } from './dto/update_status_client_request.dto';
 // import { UpdateDriverRatingDto } from './dto/update_driver_rating.dto';
@@ -58,10 +58,10 @@ export class ClientRequestsController {
     //     return this.clientRequestsService.getByClientAssigned(id_client);
     // }
 
-    // @Post()
-    // create(@Body() clientRequest: CreateClientRequestDto) {
-    //     return this.clientRequestsService.create(clientRequest);
-    // }
+    @Post()
+    create(@Body() clientRequest: CreateClientRequestDto) {
+        return this.clientRequestsService.create(clientRequest);
+    }
 
     // @Put()
     // updateDriverAssigned(@Body() driverAssigned: UpdateDriverAssignedClientRequestDto) {
