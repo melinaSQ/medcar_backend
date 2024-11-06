@@ -14,6 +14,7 @@ import { ClientRequestsModule } from './client_requests/client_requests.module';
 // import { ConfigModule } from '@nestjs/config';
 // import { FirebaseModule } from './firebase/firebase.module';
 // import { AuthModule } from './auth/auth.module';
+import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
 
 
 
@@ -35,6 +36,7 @@ import { ClientRequestsModule } from './client_requests/client_requests.module';
     SocketModule,
     DriversPositionModule,
     ClientRequestsModule,
+    TimeAndDistanceValuesModule,
     /*
     ConfigModule.forRoot({ cache: true }),
     TimeAndDistanceValuesModule,

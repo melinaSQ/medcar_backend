@@ -1,6 +1,6 @@
 import { Client, DistanceMatrixResponseData, TravelMode } from '@googlemaps/google-maps-services-js';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-// import { TimeAndDistanceValuesService } from '../time_and_distance_values/time_and_distance_values.service';
+import { TimeAndDistanceValuesService } from '../time_and_distance_values/time_and_distance_values.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // import { ClientRequests, Status } from './client_requests.entity';
@@ -20,7 +20,7 @@ export class ClientRequestsService  extends Client {
 
     constructor(
         // @InjectRepository(ClientRequests) private clientRequestsRepository: Repository<ClientRequests>,
-        // private timeAndDistanceValuesService: TimeAndDistanceValuesService,  
+        private timeAndDistanceValuesService: TimeAndDistanceValuesService,  
         // private firebaseRepository: FirebaseRepository
     ) {
         super();
@@ -412,9 +412,9 @@ export class ClientRequestsService  extends Client {
         destination_lng: number,
     ) {
 
-        // const values = await this.timeAndDistanceValuesService.find();
-        // const kmValue = values[0].km_value;
-        // const minValue = values[0].min_value;
+        const values = await this.timeAndDistanceValuesService.find();
+        const kmValue = values[0].km_value;
+        const minValue = values[0].min_value;
 
         const googleResponse = await this.distancematrix({
             params: {
@@ -435,22 +435,22 @@ export class ClientRequestsService  extends Client {
             }
         });
         
-        // const recommendedValue = (kmValue * (googleResponse.data.rows[0].elements[0].distance.value / 1000)) + (minValue * (googleResponse.data.rows[0].elements[0].duration.value / 60))
+        const recommendedValue = (kmValue * (googleResponse.data.rows[0].elements[0].distance.value / 1000)) + (minValue * (googleResponse.data.rows[0].elements[0].duration.value / 60))
 
-        return googleResponse.data;
-        // return {
-        //     // 'recommended_value': recommendedValue,
-        //     'destination_addresses': googleResponse.data.destination_addresses[0],
-        //     'origin_addresses': googleResponse.data.origin_addresses[0],
-        //     'distance': {
-        //         'text': googleResponse.data.rows[0].elements[0].distance.text,
-        //         'value': (googleResponse.data.rows[0].elements[0].distance.value / 1000)
-        //     },
-        //     'duration': {
-        //         'text': googleResponse.data.rows[0].elements[0].duration.text,
-        //         'value': (googleResponse.data.rows[0].elements[0].duration.value / 60)
-        //     },
-        // };
+        // return googleResponse.data;
+        return {
+            'recommended_value': recommendedValue,
+            'destination_addresses': googleResponse.data.destination_addresses[0],
+            'origin_addresses': googleResponse.data.origin_addresses[0],
+            'distance': {
+                'text': googleResponse.data.rows[0].elements[0].distance.text,
+                'value': (googleResponse.data.rows[0].elements[0].distance.value / 1000)
+            },
+            'duration': {
+                'text': googleResponse.data.rows[0].elements[0].duration.text,
+                'value': (googleResponse.data.rows[0].elements[0].duration.value / 60)
+            },
+        };
     }
 
 
