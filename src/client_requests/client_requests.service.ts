@@ -349,63 +349,63 @@ export class ClientRequestsService  extends Client {
     //     return data;
     // }
 
-    // async getNearbyTripRequest(driver_lat: number, driver_lng: number) {
-    //     const data = await this.clientRequestsRepository.query(`
-    //     SELECT
-    //         CR.id,
-    //         CR.id_client,
-    //         CR.fare_offered,
-    //         CR.pickup_description,
-    //         CR.destination_description,
-    //         CR.status,
-    //         CR.updated_at,
-    //         CR.pickup_position,
-    //         CR.destination_position,
-    //         ST_Distance_Sphere(pickup_position, ST_GeomFromText('POINT(${driver_lat} ${driver_lng})', 4326)) AS distance,
-    //         timestampdiff(MINUTE, CR.updated_at, NOW()) AS time_difference,
-    //     JSON_OBJECT(
-    //         "name", U.name,
-    //         "lastname", U.lastname,
-    //         "phone", U.phone,
-    //         "image", U.image
-    //     ) AS client
-    //     FROM 
-    //         client_requests AS CR
-    //     INNER JOIN
-    //         users AS U
-    //     ON
-    //         U.id = CR.id_client
-    //     WHERE
-    //         timestampdiff(MINUTE, CR.updated_at, NOW()) < 5000 AND CR.status = '${Status.CREATED}'
-    //     HAVING
-    //         distance < 10000
-    //     `);
-    //     if(data.length > 0) {
-    //         const pickup_positions = data.map(d => ({ 
-    //             lat: d.pickup_position.y, 
-    //             lng: d.pickup_position.x 
-    //         }));
+    async getNearbyTripRequest(driver_lat: number, driver_lng: number) {
+        const data = await this.clientRequestsRepository.query(`
+        SELECT
+            CR.id,
+            CR.id_client,
+            CR.fare_offered,
+            CR.pickup_description,
+            CR.destination_description,
+            CR.status,
+            CR.updated_at,
+            CR.pickup_position,
+            CR.destination_position,
+            ST_Distance_Sphere(pickup_position, ST_GeomFromText('POINT(${driver_lat} ${driver_lng})', 4326)) AS distance,
+            timestampdiff(MINUTE, CR.updated_at, NOW()) AS time_difference,
+        JSON_OBJECT(
+            "name", U.name,
+            "lastname", U.lastname,
+            "phone", U.phone,
+            "image", U.image
+        ) AS client
+        FROM 
+            client_requests AS CR
+        INNER JOIN
+            users AS U
+        ON
+            U.id = CR.id_client
+        WHERE
+            timestampdiff(MINUTE, CR.updated_at, NOW()) < 5000 AND CR.status = '${Status.CREATED}'
+        HAVING
+            distance < 10000
+        `);
+        // if(data.length > 0) {
+        //     const pickup_positions = data.map(d => ({ 
+        //         lat: d.pickup_position.y, 
+        //         lng: d.pickup_position.x 
+        //     }));
     
-    //         const googleResponse = await this.distancematrix({
-    //             params: {
-    //                 mode: TravelMode.driving,
-    //                 key: API_KEY,
-    //                 origins: [
-    //                     {
-    //                         lat: driver_lat,
-    //                         lng: driver_lng
-    //                     }
-    //                 ],
-    //                 destinations: pickup_positions
-    //             }
-    //         });
+        //     const googleResponse = await this.distancematrix({
+        //         params: {
+        //             mode: TravelMode.driving,
+        //             key: API_KEY,
+        //             origins: [
+        //                 {
+        //                     lat: driver_lat,
+        //                     lng: driver_lng
+        //                 }
+        //             ],
+        //             destinations: pickup_positions
+        //         }
+        //     });
     
-    //         data.forEach((d, index) => {
-    //             d.google_distance_matrix = googleResponse.data.rows[0].elements[index];
-    //         });      
-    //     }
-    //     return data;
-    // }
+        //     data.forEach((d, index) => {
+        //         d.google_distance_matrix = googleResponse.data.rows[0].elements[index];
+        //     });      
+        // }
+        return data;
+    }
 
     async getTimeAndDistanceClientRequest(
         origin_lat: number,

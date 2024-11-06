@@ -26,16 +26,16 @@ export class ClientRequestsController {
         )
     }
 
-    // @Get(':driver_lat/:driver_lng')
-    // getNearbyTripRequest(
-    //     @Param('driver_lat') driver_lat: number, 
-    //     @Param('driver_lng') driver_lng: number, 
-    // ) {
-    //     return this.clientRequestsService.getNearbyTripRequest(
-    //         driver_lat,
-    //         driver_lng,
-    //     );
-    // }
+    @Get(':driver_lat/:driver_lng')
+    getNearbyTripRequest(
+        @Param('driver_lat') driver_lat: number, 
+        @Param('driver_lng') driver_lng: number, 
+    ) {
+        return this.clientRequestsService.getNearbyTripRequest(
+            driver_lat,
+            driver_lng,
+        );
+    }
 
     // @Get(':id_client_request')
     // getByClientRequest(
