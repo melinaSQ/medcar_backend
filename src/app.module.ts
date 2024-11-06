@@ -6,7 +6,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { SocketModule } from './socket/socket.module';
-// import { DriversPositionModule } from './drivers_position/drivers_position.module';
+import { DriversPositionModule } from './drivers_position/drivers_position.module';
 // import { ClientRequestsModule } from './client_requests/client_requests.module';
 // import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
 // import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.module';
@@ -33,10 +33,9 @@ import { SocketModule } from './socket/socket.module';
     AuthModule,
     RolesModule,
     SocketModule,
+    DriversPositionModule,
     /*
     ConfigModule.forRoot({ cache: true }),
-    SocketModule,
-    DriversPositionModule,
     ClientRequestsModule,
     TimeAndDistanceValuesModule,
     DriverTripOffersModule,

@@ -1,12 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { hash } from 'bcrypt';
 import { Rol } from 'src/roles/rol.entity';
-/*
 import { DriversPosition } from 'src/drivers_position/drivers_position.entity';
-import { ClientRequests } from 'src/client_requests/client_requests.entity';
-import { DriverTripOffers } from 'src/driver_trip_offers/driver_trip_offers.entity';
-import { DriverCarInfo } from 'src/driver_car_info/driver_car_info.entity';
-*/
+// import { ClientRequests } from 'src/client_requests/client_requests.entity';
+// import { DriverTripOffers } from 'src/driver_trip_offers/driver_trip_offers.entity';
+// import { DriverCarInfo } from 'src/driver_car_info/driver_car_info.entity';
+
 
 @Entity({ name: 'users' })
 export class User {
@@ -58,23 +57,22 @@ export class User {
     @ManyToMany(() => Rol, (rol) => rol.users)
     roles: Rol[];
 
-    /*
     @OneToMany(() => DriversPosition, driversPosition => driversPosition.id_driver)
     driversPosition: DriversPosition;
 
-    @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_client)
-    clientRequests: ClientRequests;
+    // @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_client)
+    // clientRequests: ClientRequests;
 
-    @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_driver_assigned)
-    clientRequestsDriverAssigned: ClientRequests;
+    // @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_driver_assigned)
+    // clientRequestsDriverAssigned: ClientRequests;
 
-    @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
-    driverTripOffers: DriverTripOffers;
+    // @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
+    // driverTripOffers: DriverTripOffers;
 
-    @OneToMany(() => DriverCarInfo, driverCarInfo => driverCarInfo.id_driver)
-    driverCarInfo: DriverCarInfo;
+    // @OneToMany(() => DriverCarInfo, driverCarInfo => driverCarInfo.id_driver)
+    // driverCarInfo: DriverCarInfo;
     
-   */
+   
     //para que encriptar la contraseña
     @BeforeInsert()
     async hashPassword() {
