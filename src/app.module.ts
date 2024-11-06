@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { SocketModule } from './socket/socket.module';
 import { DriversPositionModule } from './drivers_position/drivers_position.module';
-// import { ClientRequestsModule } from './client_requests/client_requests.module';
+import { ClientRequestsModule } from './client_requests/client_requests.module';
 // import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
 // import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.module';
 // import { DriverCarInfoModule } from './driver_car_info/driver_car_info.module';
@@ -34,9 +34,9 @@ import { DriversPositionModule } from './drivers_position/drivers_position.modul
     RolesModule,
     SocketModule,
     DriversPositionModule,
+    ClientRequestsModule,
     /*
     ConfigModule.forRoot({ cache: true }),
-    ClientRequestsModule,
     TimeAndDistanceValuesModule,
     DriverTripOffersModule,
     DriverCarInfoModule,
