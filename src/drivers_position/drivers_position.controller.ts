@@ -15,19 +15,19 @@ export class DriversPositionController {
         return this.driversPositionService.create(driversPosition)
     }   
 
-    @Get(':id_driver')
-    getDriverPosition(@Param('id_driver') id_driver: number) {
-        return this.driversPositionService.getDriverPosition(id_driver);        
-    }
+    // @Get(':id_driver')
+    // getDriverPosition(@Param('id_driver') id_driver: number) {
+    //     return this.driversPositionService.getDriverPosition(id_driver);        
+    // }
 
     @Get(':client_lat/:client_lng')
     getNearbyDrivers(@Param('client_lat') client_lat: number, @Param('client_lng') client_lng: number) {
         return this.driversPositionService.getNearbyDrivers(client_lat, client_lng);        
     }
 
-    @Delete(':id_driver')
-    delete(@Param('id_driver', ParseIntPipe) id_driver: number ) {
-        return this.driversPositionService.delete(id_driver);
-    }
+    // @Delete(':id_driver')
+    // delete(@Param('id_driver', ParseIntPipe) id_driver: number ) {
+    //     return this.driversPositionService.delete(id_driver);
+    // }
 
 }

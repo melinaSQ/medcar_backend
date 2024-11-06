@@ -48,21 +48,21 @@ export class DriversPositionService {
         }
     }
 
-    async getDriverPosition(id_driver: number) {
-        const driverPosition = await this.driversPositionRepository.query(`
-        SELECT
-            *
-        FROM
-            drivers_position
-        WHERE
-            id_driver = ${id_driver}
-        `);
-        return {
-            'id_driver': driverPosition[0].id_driver,
-            'lat': driverPosition[0].position.y,
-            'lng': driverPosition[0].position.x,
-        };
-    }
+    // async getDriverPosition(id_driver: number) {
+    //     const driverPosition = await this.driversPositionRepository.query(`
+    //     SELECT
+    //         *
+    //     FROM
+    //         drivers_position
+    //     WHERE
+    //         id_driver = ${id_driver}
+    //     `);
+    //     return {
+    //         'id_driver': driverPosition[0].id_driver,
+    //         'lat': driverPosition[0].position.y,
+    //         'lng': driverPosition[0].position.x,
+    //     };
+    // }
 
     async getNearbyDrivers(client_lat: number, client_lng: number) {
         const driversPosition = await this.driversPositionRepository.query(`
@@ -77,8 +77,8 @@ export class DriversPositionService {
         return driversPosition;
     }
 
-    delete(id_driver: number) {
-        return this.driversPositionRepository.delete(id_driver);
-    }
+    // delete(id_driver: number) {
+    //     return this.driversPositionRepository.delete(id_driver);
+    // }
 
 }
