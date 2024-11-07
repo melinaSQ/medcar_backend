@@ -22,8 +22,13 @@ export class ClientRequests {
     @Column()
     id_client: number;
 
-    @Column('decimal', {precision: 10, scale: 2})
-    fare_offered: number;
+    //extras
+    @Column({ nullable: true })
+    patient_data: string;
+
+    @Column({ type: 'datetime', nullable: true })
+    pickup_date: Date;
+
 
     @Column()
     pickup_description: string;

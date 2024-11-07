@@ -1,7 +1,10 @@
 export class CreateClientRequestDto {
 
     id_client: number;
-    fare_offered: number;
+    //extras
+    patient_data: string;
+    pickup_date: Date;
+    //
     pickup_description: string;
     destination_description: string;
     pickup_lat: number;

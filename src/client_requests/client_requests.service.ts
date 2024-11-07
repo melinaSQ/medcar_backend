@@ -28,23 +28,43 @@ export class ClientRequestsService  extends Client {
   
     async create(clientRequest: CreateClientRequestDto) {
         try {
+
+            // Verificar si la fecha es una cadena y convertirla a Date si es necesario
+            let pickupDate = null;
+            if (clientRequest.pickup_date) {
+                if (typeof clientRequest.pickup_date === 'string') {
+                    pickupDate = new Date(clientRequest.pickup_date);
+                } else if (clientRequest.pickup_date instanceof Date) {
+                    pickupDate = clientRequest.pickup_date;
+                }
+
+                // Verificar si pickupDate es una fecha válida
+                if (!isNaN(pickupDate.getTime())) {
+                    pickupDate = pickupDate.toISOString().slice(0, 19).replace('T', ' ');
+                } else {
+                    pickupDate = null;
+                }
+            }
+
             await this.clientRequestsRepository.query(`
                 INSERT INTO
                     client_requests(
                         id_client,
-                        fare_offered,
                         pickup_description,
                         destination_description,
                         pickup_position,
-                        destination_position
+                        destination_position,
+                        patient_data,
+                        pickup_date
                     )
                 VALUES(
                     ${clientRequest.id_client},
-                    ${clientRequest.fare_offered},
                     '${clientRequest.pickup_description}',
                     '${clientRequest.destination_description}',
                     ST_GeomFromText('POINT(${clientRequest.pickup_lat} ${clientRequest.pickup_lng})', 4326),
-                    ST_GeomFromText('POINT(${clientRequest.destination_lat} ${clientRequest.destination_lng})', 4326)
+                    ST_GeomFromText('POINT(${clientRequest.destination_lat} ${clientRequest.destination_lng})', 4326),
+                    '${clientRequest.patient_data || ''}',
+                    '${pickupDate}'  -- Fecha en el formato correcto
                 )
             `);
 
@@ -354,7 +374,8 @@ export class ClientRequestsService  extends Client {
         SELECT
             CR.id,
             CR.id_client,
-            CR.fare_offered,
+            CR.patient_data,
+            CR.pickup_date,
             CR.pickup_description,
             CR.destination_description,
             CR.status,
@@ -371,10 +392,7 @@ export class ClientRequestsService  extends Client {
         ) AS client
         FROM 
             client_requests AS CR
-        INNER JOIN
-            users AS U
-        ON
-            U.id = CR.id_client
+        INNER JOIN users AS U ON U.id = CR.id_client
         WHERE
             timestampdiff(MINUTE, CR.updated_at, NOW()) < 5000 AND CR.status = '${Status.CREATED}'
         HAVING
@@ -386,6 +404,9 @@ export class ClientRequestsService  extends Client {
                 lat: d.pickup_position.y, 
                 lng: d.pickup_position.x 
             }));
+
+            console.log('POSICION de las solicitudes', pickup_positions);
+
     
             const googleResponse = await this.distancematrix({
                 params: {
@@ -403,8 +424,14 @@ export class ClientRequestsService  extends Client {
     
             data.forEach((d, index) => {
                 d.google_distance_matrix = googleResponse.data.rows[0].elements[index];
+                console.log('googleResponse2', d);
+
             });      
+
+            // console.log('googleResponse', googleResponse.data.rows[0].elements);
         }
+        // console.log('data SOLICITUDES:', data);
+
         return data;
     }
 
