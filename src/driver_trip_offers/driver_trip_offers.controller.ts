@@ -7,10 +7,10 @@ export class DriverTripOffersController {
 
     constructor(private driverTripOffersService: DriverTripOffersService) {}
 
-    // @Get('findByClientRequest/:id_client_request')
-    // findByClientRequest(@Param('id_client_request') id_client_request: number) {
-    //     return this.driverTripOffersService.findByClientRequest(id_client_request);
-    // }
+    @Get('findByClientRequest/:id_client_request')
+    findByClientRequest(@Param('id_client_request') id_client_request: number) {
+        return this.driverTripOffersService.findByClientRequest(id_client_request);
+    }
 
     @Post()
     create(@Body() driverTripOffer: CreateDriverTripOffersDto) {
