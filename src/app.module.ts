@@ -15,6 +15,7 @@ import { ClientRequestsModule } from './client_requests/client_requests.module';
 // import { FirebaseModule } from './firebase/firebase.module';
 // import { AuthModule } from './auth/auth.module';
 import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
+import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.module';
 
 
 
@@ -37,6 +38,7 @@ import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and
     DriversPositionModule,
     ClientRequestsModule,
     TimeAndDistanceValuesModule,
+    DriverTripOffersModule,
     /*
     ConfigModule.forRoot({ cache: true }),
     TimeAndDistanceValuesModule,

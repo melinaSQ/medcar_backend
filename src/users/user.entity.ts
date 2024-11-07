@@ -3,7 +3,7 @@ import { hash } from 'bcrypt';
 import { Rol } from 'src/roles/rol.entity';
 import { DriversPosition } from 'src/drivers_position/drivers_position.entity';
 import { ClientRequests } from 'src/client_requests/client_requests.entity';
-// import { DriverTripOffers } from 'src/driver_trip_offers/driver_trip_offers.entity';
+import { DriverTripOffers } from 'src/driver_trip_offers/driver_trip_offers.entity';
 // import { DriverCarInfo } from 'src/driver_car_info/driver_car_info.entity';
 
 
@@ -66,8 +66,8 @@ export class User {
     // @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_driver_assigned)
     // clientRequestsDriverAssigned: ClientRequests;
 
-    // @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
-    // driverTripOffers: DriverTripOffers;
+    @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
+    driverTripOffers: DriverTripOffers;
 
     // @OneToMany(() => DriverCarInfo, driverCarInfo => driverCarInfo.id_driver)
     // driverCarInfo: DriverCarInfo;
