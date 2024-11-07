@@ -394,7 +394,7 @@ export class ClientRequestsService  extends Client {
             client_requests AS CR
         INNER JOIN users AS U ON U.id = CR.id_client
         WHERE
-            timestampdiff(MINUTE, CR.updated_at, NOW()) < 5000 AND CR.status = '${Status.CREATED}'
+            timestampdiff(MINUTE, CR.updated_at, NOW()) < 500000 AND CR.status = '${Status.CREATED}'
         HAVING
             distance < 10000
         `);
