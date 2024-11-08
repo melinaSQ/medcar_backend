@@ -68,8 +68,8 @@ export class ClientRequestsService  extends Client {
                 )
             `);
 
-            return true;
-            // const data = await this.clientRequestsRepository.query(`SELECT MAX(id) AS id FROM client_requests`);
+            // return true;
+            const data = await this.clientRequestsRepository.query(`SELECT MAX(id) AS id FROM client_requests`);
             // const nearbyDrivers = await this.clientRequestsRepository.query(`
             // SELECT
             //     U.id,
@@ -97,6 +97,7 @@ export class ClientRequestsService  extends Client {
             //     }
             // });
             // console.log('NOTIFICATION TOKEN:', notificationTokens);
+            console.log('ID clientee requets:', data[0].id);
 
             // this.firebaseRepository.sendMessageToMultipleDevices({
             //     "tokens": notificationTokens,
@@ -119,7 +120,7 @@ export class ClientRequestsService  extends Client {
             //       }
             //     }
             // });
-            // return Number(data[0].id);
+            return Number(data[0].id);
         } catch (error) {
             console.log('Error creando la solicitud del cliente', error);
             throw new HttpException('Error del servidor', HttpStatus.INTERNAL_SERVER_ERROR);

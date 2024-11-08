@@ -34,14 +34,15 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     @SubscribeMessage('new_client_request')
     handleNewClientRequest(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
+
         this.server.emit('created_client_request', { id_socket: client.id, id_client_request: data.id_client_request });
     }
 
-    // @SubscribeMessage('new_driver_offer')
-    // handleNewDriverOffer(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
-    //     console.log('ID CLIENT REQUEST DRIVER OFFER:', data.id_client_request);
-    //     this.server.emit(`created_driver_offer/${data.id_client_request}`, { id_socket: client.id });
-    // }
+    @SubscribeMessage('new_driver_offer')
+    handleNewDriverOffer(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
+        console.log('ID CLIENT REQUEST DRIVER OFFER:', data.id_client_request);
+        this.server.emit(`created_driver_offer/${data.id_client_request}`, { id_socket: client.id });
+    }
 
     // @SubscribeMessage('new_driver_assigned')
     // handleNewDriverAssigned(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
