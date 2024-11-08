@@ -15,7 +15,9 @@ export class DriverTripOffersService {
     }
 
     async findByClientRequest(id_client_request: number) {
-        return this.driverTripOffersRepository.find({ relations: ['driver'], where: {id_client_request: id_client_request}});
+        const data = await this.driverTripOffersRepository.find({ relations: ['driver'], where: {id_client_request: id_client_request}});
+
+        console.log('--------------INFORMACION--------', data);
 
         // const data = await this.driverTripOffersRepository.query(`
         // SELECT
@@ -52,7 +54,7 @@ export class DriverTripOffersService {
         //     id_client_request = ${id_client_request}
 
         // `);
-        // return data;
+        return data;
     }
 
 }

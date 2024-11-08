@@ -63,8 +63,8 @@ export class User {
     @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_client)
     clientRequests: ClientRequests;
 
-    // @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_driver_assigned)
-    // clientRequestsDriverAssigned: ClientRequests;
+    @OneToMany(() => ClientRequests, clientRequests => clientRequests.id_driver_assigned)
+    clientRequestsDriverAssigned: ClientRequests;
 
     @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
     driverTripOffers: DriverTripOffers;

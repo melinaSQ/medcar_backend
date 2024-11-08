@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ClientRequests, Status } from './client_requests.entity';
 import { CreateClientRequestDto } from './dto/create_client_request.dto';
-// import { UpdateDriverAssignedClientRequestDto } from './dto/update_driver_assigned_client_request.dto';
+import { UpdateDriverAssignedClientRequestDto } from './dto/update_driver_assigned_client_request.dto';
 // import { UpdateStatusClientRequestDto } from './dto/update_status_client_request.dto';
 // import { UpdateDriverRatingDto } from './dto/update_driver_rating.dto';
 // import { UpdateClientRatingDto } from './dto/update_client_rating.dto';
@@ -127,26 +127,26 @@ export class ClientRequestsService  extends Client {
         }
     }
 
-    // async updateDriverAssigned(driverAssigned: UpdateDriverAssignedClientRequestDto) {
-    //     try {
-    //         await this.clientRequestsRepository.query(`
-    //             UPDATE
-    //                 client_requests
-    //             SET
-    //                 id_driver_assigned = ${driverAssigned.id_driver_assigned},
-    //                 status = '${Status.ACCEPTED}',
-    //                 updated_at = NOW(),
-    //                 fare_assigned = ${driverAssigned.fare_assigned}
-    //             WHERE
-    //                 id = ${driverAssigned.id}
-    //         `);
+    async updateDriverAssigned(driverAssigned: UpdateDriverAssignedClientRequestDto) {
+        try {
+            await this.clientRequestsRepository.query(`
+                UPDATE
+                    client_requests
+                SET
+                    id_driver_assigned = ${driverAssigned.id_driver_assigned},
+                    status = '${Status.ACCEPTED}',
+                    updated_at = NOW(),
+                    fare_assigned = ${driverAssigned.fare_assigned}
+                WHERE
+                    id = ${driverAssigned.id}
+            `);
             
-    //         return true;
-    //     } catch (error) {
-    //         console.log('Error creando la solicitud del cliente', error);
-    //         throw new HttpException('Error del servidor', HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+            return true;
+        } catch (error) {
+            console.log('Error actualizando la solicitud del cliente', error);
+            throw new HttpException('Error del servidor', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async updateStatus(updateStatusDto: UpdateStatusClientRequestDto) {
     //     try {
