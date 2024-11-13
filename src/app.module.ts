@@ -16,6 +16,9 @@ import { ClientRequestsModule } from './client_requests/client_requests.module';
 // import { AuthModule } from './auth/auth.module';
 import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
 import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.module';
+// import { DriverCarInfoModule } from './driver_car_info/driver_car_info.module';
+// import { AmbulancesModule } from './ambulances/ambulances.module';
+import { UserCompanyInfoModule } from './user_company_info/user_company_info.module';
 
 
 
@@ -39,13 +42,14 @@ import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.
     ClientRequestsModule,
     TimeAndDistanceValuesModule,
     DriverTripOffersModule,
-    /*
-    ConfigModule.forRoot({ cache: true }),
-    TimeAndDistanceValuesModule,
-    DriverTripOffersModule,
-    DriverCarInfoModule,
-    FirebaseModule,
-    */
+    // DriverCarInfoModule,
+    // AmbulancesModule,
+    UserCompanyInfoModule,
+    // ConfigModule.forRoot({ cache: true }),
+    // TimeAndDistanceValuesModule,
+    // DriverTripOffersModule,
+    // DriverCarInfoModule,
+    // FirebaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
