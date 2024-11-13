@@ -1,3 +1,4 @@
+import { Ambulance } from "src/ambulances/ambulance.entity";
 import { DriverTripOffers } from "src/driver_trip_offers/driver_trip_offers.entity";
 import { User } from "src/users/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -31,5 +32,9 @@ export class Company {
     @ManyToOne(() => User, (user) => user.id)
     @JoinColumn({ name: 'id_user' })
     user: User;
+
+    // Relación con ambulancias
+    @OneToMany(() => Ambulance, (ambulance) => ambulance.company)
+    ambulances: Ambulance[];
 
 }

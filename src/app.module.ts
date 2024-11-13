@@ -17,7 +17,7 @@ import { ClientRequestsModule } from './client_requests/client_requests.module';
 import { TimeAndDistanceValuesModule } from './time_and_distance_values/time_and_distance_values.module';
 import { DriverTripOffersModule } from './driver_trip_offers/driver_trip_offers.module';
 // import { DriverCarInfoModule } from './driver_car_info/driver_car_info.module';
-// import { AmbulancesModule } from './ambulances/ambulances.module';
+import { AmbulancesModule } from './ambulances/ambulances.module';
 import { CompaniesModule } from './companies/companies.module';
 
 
@@ -43,7 +43,7 @@ import { CompaniesModule } from './companies/companies.module';
     TimeAndDistanceValuesModule,
     DriverTripOffersModule,
     // DriverCarInfoModule,
-    // AmbulancesModule,
+    AmbulancesModule,
     CompaniesModule,
     // ConfigModule.forRoot({ cache: true }),
     // TimeAndDistanceValuesModule,

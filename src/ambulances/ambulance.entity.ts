@@ -1,11 +1,12 @@
+import { Company } from "src/companies/company.entity";
 import { DriverTripOffers } from "src/driver_trip_offers/driver_trip_offers.entity";
 import { User } from "src/users/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'ambulances'})
-export class Ambulances {
+export class Ambulance {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -17,7 +18,7 @@ export class Ambulances {
     @Column()
     plate: string;
 
-    //iamgen del certificado
+    //imagen del certificado
     @Column()
     sedes_resolution_code: string;
 
@@ -25,8 +26,13 @@ export class Ambulances {
     @Column()
     code: string;
 
-    @ManyToOne(() => User, (user) => user.id)
-    @JoinColumn({ name: 'id_driver' })
-    driver: User;
+    @ManyToOne(() => Company, (company) => company.id)
+    @JoinColumn({ name: 'id_company' })
+    company: Company;
+
+    // Relación con conductores
+    @ManyToMany(() => User, (driver) => driver.ambulances)
+    drivers: User[];
+
 
 }
