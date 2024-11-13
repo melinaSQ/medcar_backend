@@ -75,8 +75,8 @@ export class User {
     @OneToMany(() => Ambulance, ambulance => ambulance.id_driver)
     ambulance: Ambulance;
 
-    @OneToMany(() => Company, company => company.id_user)
-    company: Company;
+    @OneToMany(() => Company, company => company.user)
+    companies: Company[];
 
     // @JoinTable({
         

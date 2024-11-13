@@ -34,8 +34,8 @@ export class Company {
     user: User;
 
     // Relación con ambulancias
-    @OneToMany(() => Ambulance, (ambulance) => ambulance.id_company)
-    @JoinColumn({ name: 'id_company' })
-    ambulance: Ambulance;
+    @OneToMany(() => Ambulance, (ambulance) => ambulance.company)
+    // @JoinColumn({ name: 'id_company' })
+    ambulances: Ambulance[];
 
 }

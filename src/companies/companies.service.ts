@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Company } from './company.entity';
 import { Repository } from 'typeorm';
@@ -45,7 +45,18 @@ export class CompaniesService {
     }
 
     findByIdUser(id_user: number) {
-        return this.companyRepository.findOneBy({ id_user: id_user });
+        // return this.companyRepository.findOneBy({ id_user: id_user });
+        const companyFound = this.companyRepository.findOne({
+            where: { id_user: id_user },
+            relations: ['user', 'ambulances'] // Carga el usuario y las ambulancias asociadas
+        });
+
+        if (!companyFound) {
+            throw new HttpException('No se encontró la compañía para este usuario', HttpStatus.NOT_FOUND);
+        }
+    
+        return companyFound;
     }
 
+    
 }

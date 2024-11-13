@@ -28,11 +28,11 @@ export class Ambulance {
     @Column()
     code: string;
 
-    @ManyToOne(() => Company, (company) => company.id)
+    @ManyToOne(() => Company, (company) => company.ambulances)
     @JoinColumn({ name: 'id_company' })
     company: Company;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.ambulance)
     @JoinColumn({ name: 'id_driver' })
     driver: User;
 
