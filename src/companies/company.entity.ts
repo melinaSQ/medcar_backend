@@ -32,6 +32,4 @@ export class Company {
     @JoinColumn({ name: 'id_user' })
     user: User;
 
-
-
 }
