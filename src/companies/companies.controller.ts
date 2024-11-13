@@ -6,10 +6,10 @@ import { CreateCompanyDto } from './dto/create-company.dto';
 export class CompaniesController {
     constructor(private companiesService: CompaniesService) {}
 
-    // @Get(':id_driver')
-    // findByIdDriver(@Param('id_driver') id_driver: number) {
-    //     return this.driverCarInfoService.findByIdDriver(id_driver);
-    // }
+    @Get(':id_user')
+    findByIdDriver(@Param('id_user') id_user: number) {
+        return this.companiesService.findByIdUser(id_user);
+    }
 
     @Post()
     create(@Body() company: CreateCompanyDto) {

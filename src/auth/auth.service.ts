@@ -8,6 +8,7 @@ import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Rol } from '../roles/rol.entity';
 import { Ambulance } from 'src/ambulances/ambulance.entity';
+import { AssignDriverDto } from '../ambulances/dto/assign-driver.dto';
 
 
 @Injectable()

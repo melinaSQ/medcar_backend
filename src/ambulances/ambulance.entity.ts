@@ -1,5 +1,4 @@
 import { Company } from "src/companies/company.entity";
-import { DriverTripOffers } from "src/driver_trip_offers/driver_trip_offers.entity";
 import { User } from "src/users/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 

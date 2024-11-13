@@ -3,23 +3,49 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Company } from './company.entity';
 import { Repository } from 'typeorm';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { User } from 'src/users/user.entity';
+import { Rol } from '../roles/rol.entity';
+
 @Injectable()
 export class CompaniesService {
 
-    constructor(@InjectRepository(Company) private companyRepository: Repository<Company>) {}
+    constructor(
+        @InjectRepository(Company) private companyRepository: Repository<Company>,
+        @InjectRepository(User) private userRepository: Repository<User>,
+        @InjectRepository(Rol) private rolesRepository: Repository<Rol>,
+    ) {}
 
     async create(company: CreateCompanyDto) {
-        const companyInfoFound = await this.companyRepository.findOneBy({id_user: company.id_user});
-        if (!companyInfoFound) {
-            const newCompanyInfo = this.companyRepository.create(company);
-            return this.companyRepository.save(newCompanyInfo);
+
+        const newCompany = this.companyRepository.create(company);
+        const savedCompany = await this.companyRepository.save(newCompany);
+
+        // Buscar al usuario asociado a la compañía
+        const user = await this.userRepository.findOne({ where: { id: company.id_user }, relations: ['roles'] });
+
+        if (user) {
+            // Verificar si el usuario ya tiene el rol COMPANY
+            const hasCompanyRole = user.roles.some(role => role.id === 'COMPANY');
+
+            if (!hasCompanyRole) {
+                // Buscar el rol COMPANY
+                const companyRole = await this.rolesRepository.findOne({ where: { id: 'COMPANY' } });
+
+                if (companyRole) {
+                    // Agregar el rol COMPANY al usuario
+                    user.roles.push(companyRole);
+                    await this.userRepository.save(user); // Guardar los cambios en el usuario
+                }
+            }
         }
-        const updatedCompanyInfo = Object.assign(companyInfoFound, company);
-        return this.companyRepository.save(updatedCompanyInfo);
+
+        return savedCompany;
+
+
     }
 
-    // findByIdDriver(id_driver: number) {
-    //     return this.driverCarInfoRepository.findOneBy({ id_driver: id_driver });
-    // }
+    findByIdUser(id_user: number) {
+        return this.companyRepository.findOneBy({ id_user: id_user });
+    }
 
 }
