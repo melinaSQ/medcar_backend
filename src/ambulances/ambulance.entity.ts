@@ -12,13 +12,13 @@ export class Ambulance {
     @Column()
     id_company: number;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true , unique: true})
     id_driver: number;
 
     @Column()
     ambulance_type: string;
 
-    @Column()
+    @Column({unique: true})
     plate: string;
 
     //imagen del certificado
