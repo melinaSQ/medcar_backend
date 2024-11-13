@@ -7,6 +7,7 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Rol } from '../roles/rol.entity';
+import { Ambulance } from 'src/ambulances/ambulance.entity';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class AuthService {
     constructor(
         @InjectRepository(User) private usersRepository: Repository<User>,
         @InjectRepository(Rol) private rolesRepository: Repository<Rol>,
+        @InjectRepository(Ambulance) private ambulanceRepository: Repository<Ambulance>,
 
         private jwtService: JwtService
     ) {}
@@ -107,5 +109,7 @@ export class AuthService {
 
         return data;
     }
+
+    
 
 }

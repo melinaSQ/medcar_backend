@@ -12,6 +12,9 @@ export class Ambulance {
     @Column()
     id_company: number;
 
+    @Column({ nullable: true })
+    id_driver: number;
+
     @Column()
     ambulance_type: string;
 
@@ -30,9 +33,13 @@ export class Ambulance {
     @JoinColumn({ name: 'id_company' })
     company: Company;
 
+    @ManyToOne(() => User, (user) => user.id)
+    @JoinColumn({ name: 'id_driver' })
+    driver: User;
+
     // Relación con conductores
-    @ManyToMany(() => User, (driver) => driver.ambulances)
-    drivers: User[];
+    // @ManyToMany(() => User, (driver) => driver.ambulances)
+    // drivers: User[];
 
 
 }

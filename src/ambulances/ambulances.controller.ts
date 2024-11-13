@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AmbulancesService } from './ambulances.service';
 import { CreateAmbulanceDto } from './dto/create-ambulance.dto';
+import { AssignDriverDto } from './dto/assign-driver.dto';
 
 @Controller('ambulances')
 export class AmbulancesController {
@@ -15,4 +16,11 @@ export class AmbulancesController {
     create(@Body() ambulance: CreateAmbulanceDto) {
         return this.ambulancesService.create(ambulance);
     }
+
+    @Put()
+    AssignDriver(@Body() driverAssigned: AssignDriverDto) {
+        return this.ambulancesService.assignDriver(driverAssigned);
+    }
+
+    
 }

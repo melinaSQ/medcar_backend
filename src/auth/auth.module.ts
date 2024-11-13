@@ -8,10 +8,12 @@ import { jwtConstants } from './jwt/jwt.constants';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { RolesService } from 'src/roles/roles.service';
 import { Rol } from 'src/roles/rol.entity';
+import { AmbulancesService } from 'src/ambulances/ambulances.service';
+import { Ambulance } from 'src/ambulances/ambulance.entity';
 
 @Module({
   imports: [ 
-    TypeOrmModule.forFeature([User, Rol]),
+    TypeOrmModule.forFeature([User, Rol, Ambulance]),
     
     JwtModule.register({
       secret: jwtConstants.secret,
@@ -19,7 +21,7 @@ import { Rol } from 'src/roles/rol.entity';
       signOptions: { expiresIn: '2d' },
     }),
   ],
-  providers: [AuthService, RolesService, JwtStrategy],
+  providers: [AuthService, RolesService, AmbulancesService, JwtStrategy],
   controllers: [AuthController]
 })
 export class AuthModule {}

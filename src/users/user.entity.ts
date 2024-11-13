@@ -5,6 +5,7 @@ import { DriversPosition } from 'src/drivers_position/drivers_position.entity';
 import { ClientRequests } from 'src/client_requests/client_requests.entity';
 import { DriverTripOffers } from 'src/driver_trip_offers/driver_trip_offers.entity';
 import { Ambulance } from 'src/ambulances/ambulance.entity';
+import { Company } from 'src/companies/company.entity';
 // import { UserCompanyInfo } from 'src/user_company_info/user_company_info.entity';
 // import { DriverCarInfo } from 'src/driver_car_info/driver_car_info.entity';
 
@@ -71,26 +72,26 @@ export class User {
     @OneToMany(() => DriverTripOffers, driverTripOffers => driverTripOffers.id_driver)
     driverTripOffers: DriverTripOffers;
 
-    // @OneToMany(() => DriverCarInfo, driverCarInfo => driverCarInfo.id_driver)
-    // driverCarInfo: DriverCarInfo;
+    @OneToMany(() => Ambulance, ambulance => ambulance.id_driver)
+    ambulance: Ambulance;
 
-    // @OneToMany(() => UserCompanyInfo, userCompanyInfo => userCompanyInfo.id_user)
-    // userCompanyInfo: UserCompanyInfo;
+    @OneToMany(() => Company, company => company.id_user)
+    company: Company;
 
-    @JoinTable({
+    // @JoinTable({
         
-        name: 'driver_has_ambulance',
-        joinColumn: {
-            name: 'id_driver'
-        },
-        inverseJoinColumn: {
-            name: 'id_ambulance'
-        }
-    })
+    //     name: 'driver_has_ambulance',
+    //     joinColumn: {
+    //         name: 'id_driver'
+    //     },
+    //     inverseJoinColumn: {
+    //         name: 'id_ambulance'
+    //     }
+    // })
 
-    // Relación con ambulancias
-    @ManyToMany(() => Ambulance, (ambulance) => ambulance.drivers)
-    ambulances: Ambulance[];
+    // // Relación con ambulancias
+    // @ManyToMany(() => Ambulance, (ambulance) => ambulance.drivers)
+    // ambulances: Ambulance[];
     
    
     //para que encriptar la contraseña
