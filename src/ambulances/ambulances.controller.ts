@@ -7,10 +7,10 @@ import { AssignDriverDto } from './dto/assign-driver.dto';
 export class AmbulancesController {
     constructor(private ambulancesService: AmbulancesService) {}
 
-    // @Get(':id_driver')
-    // findByIdDriver(@Param('id_driver') id_driver: number) {
-    //     return this.driverCarInfoService.findByIdDriver(id_driver);
-    // }
+    @Get(':id_driver')
+    findByIdDriver(@Param('id_driver') id_driver: number) {
+        return this.ambulancesService.findByIdDriver(id_driver);
+    }
 
     @Post()
     create(@Body() ambulance: CreateAmbulanceDto) {

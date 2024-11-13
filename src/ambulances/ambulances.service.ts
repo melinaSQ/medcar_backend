@@ -32,9 +32,9 @@ export class AmbulancesService {
     //     return this.usersRepository.save(updatedUser);
     // }
 
-    // findByIdDriver(id_driver: number) {
-    //     return this.driverCarInfoRepository.findOneBy({ id_driver: id_driver });
-    // }
+    findByIdDriver(id_driver: number) {
+        return this.ambulancesRepository.findOneBy({ id_driver: id_driver });
+    }
 
     //************metodo para controlar el entrara como conductor
     async assignDriver(assignDriverDto: AssignDriverDto) {
